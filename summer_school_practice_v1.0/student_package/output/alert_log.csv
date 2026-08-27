@@ -1,0 +1,6 @@
+﻿alert_time,target_id,alert_type,severity,field,description
+1710000120,780def,POSITION_MISSING,HIGH,lat/lon,纬度或经度缺失
+1710000120,000001,DATA_DELAYED,MEDIUM,timestamp,记录时间相对批次时间延迟超过60秒
+1710000120,780bbb,HEADING_OUT_OF_RANGE,MEDIUM,heading,"航向不在[0,360)范围"
+1710000120,780aaa,DUPLICATE_RECORD,MEDIUM,target_id+timestamp,目标与时间联合键重复
+1710000120,780aaa,DUPLICATE_RECORD,MEDIUM,target_id+timestamp,目标与时间联合键重复

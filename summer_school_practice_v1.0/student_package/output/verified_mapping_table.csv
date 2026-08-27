@@ -1,0 +1,26 @@
+﻿source_format,input_field,unified_field,mapping_rule,unit_conversion,null_strategy,evidence,verified
+OpenSky,target_id,track_id,"lowercase, preserve six hex digits",none,reject null,source_field_definitions.md: track_id,true
+OpenSky,latest_time,timestamp,positive Unix seconds,none,reject null,source_field_definitions.md: timestamp,true
+OpenSky,callsign,identity.callsign,direct trimmed text,none,blank -> null,source_field_definitions.md: callsign,true
+OpenSky,lat,position.lat,direct numeric value,degrees,blank -> null,source_field_definitions.md: position.lat,true
+OpenSky,lon,position.lon,direct numeric value,degrees,blank -> null,source_field_definitions.md: position.lon,true
+OpenSky,altitude+alt_type,position.alt/position.alt_type,direct altitude and source label,metres,blank altitude -> null/unknown,source_field_definitions.md: altitude,true
+OpenSky,speed/heading/vertical_rate,motion.*,direct numeric values,"m/s, degrees, m/s",blank -> null,source_field_definitions.md: motion,true
+OpenSky,on_ground,status.on_ground,convert to boolean,none,missing -> false,source_field_definitions.md: status,true
+OpenSky,time_source,quality.time_source,direct controlled value,none,missing -> position_time,source_field_definitions.md: time_source,true
+OpenSky,lat+lon,quality.position_valid,both non-null and within range,none,missing coordinate -> false,source_field_definitions.md: position_valid,true
+OpenSky,message_valid,quality.message_valid,direct boolean,none,missing -> false,source record validation,true
+TeachingLink,target_id,track_id,"lowercase, preserve leading zeros",none,reject null,teaching_message_spec.md offsets 12-14,true
+TeachingLink,timestamp,timestamp,positive uint32 Unix seconds,seconds,zero -> invalid,teaching_message_spec.md offsets 8-11,true
+TeachingLink,callsign+validity_flags.bit6,identity.callsign,strip NUL padding,ASCII,bit6=0 -> null,teaching_message_spec.md offsets 15-22,true
+TeachingLink,latitude_code+validity_flags.bit0,position.lat,code/(2^22-1)*180-90,code to degrees,bit0=0 -> null,teaching_message_spec.md offsets 23-25,true
+TeachingLink,longitude_code+validity_flags.bit1,position.lon,code/(2^22-1)*360-180,code to degrees,bit1=0 -> null,teaching_message_spec.md offsets 26-28,true
+TeachingLink,altitude_code+validity_flags.bit2,position.alt,code-1000,code to metres,bit2=0 -> null,teaching_message_spec.md offsets 29-30,true
+TeachingLink,status_flags.bit1,position.alt_type,0=barometric;1=geometric,none,altitude invalid -> unknown,teaching_message_spec.md status bit1,true
+TeachingLink,speed_code+validity_flags.bit3,motion.speed,code*0.1,code to m/s,bit3=0 -> null,teaching_message_spec.md offsets 31-32,true
+TeachingLink,heading_code+validity_flags.bit4,motion.heading,code*0.01 and <360,code to degrees,bit4=0 -> null,teaching_message_spec.md offsets 33-34,true
+TeachingLink,vertical_rate_code+validity_flags.bit5,motion.vertical_rate,code*0.01-327.68,code to m/s,bit5=0 -> null,teaching_message_spec.md offsets 35-36,true
+TeachingLink,status_flags.bit0,status.on_ground,convert bit to boolean,none,always available,teaching_message_spec.md status bit0,true
+TeachingLink,status_flags.bit2,quality.time_source,1=last_contact_fallback;0=position_time,none,timestamp invalid -> time_valid false,source_field_definitions.md time_source,true
+TeachingLink,lat/lon valid bits+range,quality.position_valid,both valid and within geographic range,none,missing coordinate -> false,source_field_definitions.md: position_valid,true
+TeachingLink,message_valid,quality.message_valid,direct boolean,none,missing -> false,complete receiver validation criteria,true

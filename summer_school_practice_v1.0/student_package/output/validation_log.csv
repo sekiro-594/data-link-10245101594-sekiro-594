@@ -1,0 +1,3 @@
+﻿record_no,target_id,stage,field,problem_type,value,description
+3,780bad,encode,,REQUIRED_FIELD_MISSING,,REQUIRED_FIELD_MISSING: timestamp
+4,780bee,encode,,OUT_OF_RANGE,,OUT_OF_RANGE

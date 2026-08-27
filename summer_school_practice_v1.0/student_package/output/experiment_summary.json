@@ -1,0 +1,9 @@
+{
+  "parsed_records": 5,
+  "encoded_frames": 3,
+  "decoded_frames": 3,
+  "multitime_frames": 9,
+  "targets": 3,
+  "unified_messages": 6,
+  "alerts": 5
+}
